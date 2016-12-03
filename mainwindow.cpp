@@ -12,3 +12,9 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    temp_humi_server *tempserver = new temp_humi_server();
+    tempserver->show();
+}
