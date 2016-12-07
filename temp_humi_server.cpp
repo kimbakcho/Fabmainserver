@@ -53,6 +53,158 @@ temp_humi_server::temp_humi_server(QWidget *parent) :
     send_message_timer.start();
 }
 
+bool temp_humi_server::spacout_check()
+{
+    bool result = false;
+    QDateTime search_start_time = QDateTime::currentDateTime().addDays(-1);
+    search_start_time.setTime(QTime(0,0,0));
+    QDateTime search_end_time = QDateTime::currentDateTime();
+
+    QSqlQuery query1(db);
+    QString query1txt = QString("select * from room_temp_humi where check_time BETWEEN '%1' AND '%2' order by check_time desc;").arg(search_start_time.toString("yyyy-MM-dd hh:mm")).arg(search_end_time.toString("yyyy-MM-dd hh:mm"));
+    query1.exec(query1txt);
+    QSqlQuery query2(db);
+    QString query2txt = QString("select * from room_temp_humi_spec");
+    query2.exec(query2txt);
+
+    query1.next();
+    double light1_temp = query1.value("light1_temp").toDouble();
+    query2.first();
+    double lightroomtemp_high_spce = query2.value("lightroomtemp_spec").toDouble();
+    query2.last();
+    double lightroomtemp_low_spce = query2.value("lightroomtemp_spec").toDouble();
+
+    if(light1_temp>=lightroomtemp_high_spce){
+        result = true;
+    }else if(light1_temp<=lightroomtemp_low_spce) {
+        result = true;
+    }
+    double light2_temp = query1.value("light2_temp").toDouble();
+    if(light2_temp>=lightroomtemp_high_spce){
+        result = true;
+     }else if(light2_temp<=lightroomtemp_low_spce) {
+        result = true;
+     }
+     double light3_temp = query1.value("light3_temp").toDouble();
+
+     if(light3_temp>=lightroomtemp_high_spce){
+         result = true;
+     }else if(light3_temp<=lightroomtemp_low_spce) {
+         result = true;
+     }
+
+     double light1_humi = query1.value("light1_humi").toDouble();
+     query2.first();
+     double lightroomhumi_high_spce = query2.value("lightroomhumi_spec").toDouble();
+     query2.last();
+     double lightroomhumi_low_spce = query2.value("lightroomhumi_spec").toDouble();
+
+     if(light1_humi>=lightroomhumi_high_spce){
+         result = true;
+     }else if(light1_humi<=lightroomhumi_low_spce) {
+         result = true;
+     }
+     double light2_humi = query1.value("light2_humi").toDouble();
+     if(light2_humi>=lightroomhumi_high_spce){
+         result = true;
+     }else if(light2_humi<=lightroomhumi_low_spce) {
+         result = true;
+     }
+     double light3_humi = query1.value("light3_humi").toDouble();
+
+     if(light3_humi>=lightroomhumi_high_spce){
+         result = true;
+     }else if(light3_humi<=lightroomhumi_low_spce) {
+         result = true;
+     }
+
+
+     query2.first();
+     double normaltemp_high_spce = query2.value("normalroomtemp_spec").toDouble();
+     query2.last();
+     double normaltemp_low_spce = query2.value("normalroomtemp_spec").toDouble();
+      double deposition_temp = query1.value("deposition_temp").toDouble();
+
+
+     if(deposition_temp>=normaltemp_high_spce){
+         result = true;
+     }else if(deposition_temp<=normaltemp_low_spce) {
+         result = true;
+     }
+     double etching1_temp = query1.value("etching1_temp").toDouble();
+
+     if(etching1_temp>=normaltemp_high_spce){
+         result = true;
+     }else if(etching1_temp<=normaltemp_low_spce) {
+         result = true;
+     }
+     double etching2_temp = query1.value("etching2_temp").toDouble();
+
+
+     if(etching2_temp>=normaltemp_high_spce){
+         result = true;
+     }else if(etching2_temp<=normaltemp_low_spce) {
+         result = true;
+     }
+     double probe1_temp = query1.value("probe1_temp").toDouble();
+
+
+     if(probe1_temp>=normaltemp_high_spce){
+         result = true;
+     }else if(probe1_temp<=normaltemp_low_spce) {
+         result = true;
+     }
+     double probe2_temp = query1.value("probe2_temp").toDouble();
+
+     if(probe2_temp>=normaltemp_high_spce){
+         result = true;
+     }else if(probe2_temp<=normaltemp_low_spce) {
+         result = true;
+     }
+     query2.first();
+     double normalroomhumi_high_spce = query2.value("normalroomhumi_spec").toDouble();
+     query2.last();
+     double normalroomhumi_low_spce = query2.value("normalroomhumi_spec").toDouble();
+
+     double deposition_humi = query1.value("deposition_humi").toDouble();
+
+     if(deposition_humi>=normalroomhumi_high_spce){
+         result = true;
+     }else if(deposition_humi<=normalroomhumi_low_spce) {
+         result = true;
+     }
+     double etching1_humi = query1.value("etching1_humi").toDouble();
+
+     if(etching1_humi>=normalroomhumi_high_spce){
+        result = true;
+     }else if(etching1_humi<=normalroomhumi_low_spce) {
+         result = true;
+     }
+     double etching2_humi = query1.value("etching2_humi").toDouble();
+
+     if(etching2_humi>=normalroomhumi_high_spce){
+        result = true;
+     }else if(etching2_humi<=normalroomhumi_low_spce) {
+        result = true;
+     }
+     double probe1_humi = query1.value("probe1_humi").toDouble();
+
+     if(probe1_humi>=normalroomhumi_high_spce){
+         result = true;
+     }else if(probe1_humi<=normalroomhumi_low_spce) {
+        result = true;
+     }
+     double probe2_humi = query1.value("probe2_humi").toDouble();
+
+     if(probe2_humi>=normalroomhumi_high_spce){
+         result = true;
+      }else if(probe2_humi<=normalroomhumi_low_spce) {
+         result = true;
+     }
+     return result;
+
+}
+
 temp_humi_server::~temp_humi_server()
 {
     delete ui;
@@ -94,6 +246,9 @@ void temp_humi_server::temp_geter_timeout()
 
 void temp_humi_server::connect_socket()
 {
+
+
+
 
 }
 
@@ -277,10 +432,35 @@ void temp_humi_server::readready_socket()
 //        qDebug()<<query.lastQuery();
 //        qDebug()<<query.lastError();
         create_chart();
+        if (spacout_check()){
+            QDir savedir = QDir::home();
+           savedir.cd("temp_humi_mail");
+            QDateTime current_datetime = QDateTime::currentDateTime();
+            if(!savedir.exists(current_datetime.toString("yyyy_HH_dd_hh_mm"))){
+                  savedir.mkdir(current_datetime.toString("yyyy_HH_dd_hh_mm"));
+            }
+            savedir.cd(current_datetime.toString("yyyy_HH_dd_hh_mm"));
+            QPixmap lightroom_temp_picture(ui->lightroom_temp->size());
+            ui->lightroom_temp->render(&lightroom_temp_picture);
+            lightroom_temp_picture.save(savedir.absolutePath()+"/lightroom_temp.png","PNG");
+            QPixmap lightroom_humi_picture(ui->lightroom_humi->size());
+            ui->lightroom_humi->render(&lightroom_humi_picture);
+            lightroom_humi_picture.save(savedir.absolutePath()+"/lightroom_humi.png","PNG");
+            QPixmap normalroom_temp_picture(ui->normalroom_temp->size());
+            ui->normalroom_temp->render(&normalroom_temp_picture);
+            normalroom_temp_picture.save(savedir.absolutePath()+"/normalroom_temp.png","PNG");
+            QPixmap normalroom_humi_picture(ui->normalroom_humi->size());
+            ui->normalroom_humi->render(&normalroom_humi_picture);
+            normalroom_humi_picture.save(savedir.absolutePath()+"/normalroom_humi.png","PNG");
+            send_email(current_datetime.toString("yyyy_HH_dd_hh_mm"));
+        }
+
     }
     datalist.clear();
 
 }
+
+
 
 void temp_humi_server::send_message_timeout()
 {
@@ -402,9 +582,13 @@ void temp_humi_server::create_chart()
     line_probe2_humi->setPointsVisible(true);
     line_probe2_humi->setName(tr("probe2"));
 
+    QDateTime search_start_time = QDateTime::currentDateTime().addDays(-15);
+    search_start_time.setTime(QTime(0,0,0));
+    QDateTime search_end_time = QDateTime::currentDateTime();
 
-
-    query.exec("select * from room_temp_humi order by check_time desc LIMIT 15");
+    query.exec("select * from room_temp_humi where check_time BETWEEN "
+               "\'"+search_start_time.toString("yyyy-MM-dd hh:mm:ss")+"\' "
+               "AND \'"+search_end_time.toString("yyyy-MM-dd hh:mm:ss")+"\' order by check_time asc");
     while(query.next()){
           qint64 history_time_value = query.value("check_time").toDateTime().toMSecsSinceEpoch();
           double asml1_2_temp_value = query.value("light1_temp").toDouble();
@@ -531,9 +715,15 @@ void temp_humi_server::create_chart()
     ui->normalroom_humi->getMainchart()->addSeries(line_probe2_humi);
 
     QDateTimeAxis *axisX_lightroom_temp = new QDateTimeAxis();
-    axisX_lightroom_temp->setTickCount(15);
-    axisX_lightroom_temp->setFormat("MM-dd HH:mm");
-    axisX_lightroom_temp->setTitleText("Date");
+    QDateTime startpoint_time;
+    startpoint_time.setMSecsSinceEpoch((qint64)line_ASSML1_2_temp->points().first().x());
+    QDateTime endpoint_time;
+    endpoint_time.setMSecsSinceEpoch((qint64)line_ASSML1_2_temp->points().last().x());
+    int diffday = startpoint_time.daysTo(endpoint_time);
+    int tickcount = diffday+1;
+    axisX_lightroom_temp->setTickCount(tickcount);
+    axisX_lightroom_temp->setFormat("MM-dd");
+    axisX_lightroom_temp->setTitleText(tr("Date"));
     axisX_lightroom_temp->setLabelsFont(QFont("Sans Serif",11));
     ui->lightroom_temp->setAxisX(axisX_lightroom_temp);
     ui->lightroom_temp->getMainchart()->addAxis(axisX_lightroom_temp, Qt::AlignBottom);
@@ -562,8 +752,9 @@ void temp_humi_server::create_chart()
 
 
     QDateTimeAxis *axisX_lightroom_humi = new QDateTimeAxis();
-    axisX_lightroom_humi->setTickCount(15);
-    axisX_lightroom_humi->setFormat("MM-dd HH:mm");
+
+    axisX_lightroom_humi->setTickCount(tickcount);
+    axisX_lightroom_humi->setFormat("MM-dd");
     axisX_lightroom_humi->setTitleText(tr("Date"));
     axisX_lightroom_humi->setLabelsFont(QFont("Sans Serif",11));
     ui->lightroom_humi->setAxisX(axisX_lightroom_humi);
@@ -591,8 +782,9 @@ void temp_humi_server::create_chart()
     line_krf_humi->attachAxis(axisY_lightroom_humi);
 
     QDateTimeAxis *axisX_normalroom_temp = new QDateTimeAxis();
-    axisX_normalroom_temp->setTickCount(15);
-    axisX_normalroom_temp->setFormat("MM-dd HH:mm");
+
+    axisX_normalroom_temp->setTickCount(tickcount);
+    axisX_normalroom_temp->setFormat("MM-dd");
     axisX_normalroom_temp->setTitleText(tr("Date"));
     axisX_normalroom_temp->setLabelsFont(QFont("Sans Serif",11));
     ui->normalroom_temp->setAxisX(axisX_normalroom_temp);
@@ -624,11 +816,10 @@ void temp_humi_server::create_chart()
     line_probe1_temp->attachAxis(axisY_normalroom_temp);
     line_probe2_temp->attachAxis(axisY_normalroom_temp);
 
-
-
     QDateTimeAxis *axisX_normalroom_humi = new QDateTimeAxis();
-    axisX_normalroom_humi->setTickCount(15);
-    axisX_normalroom_humi->setFormat("MM-dd HH:mm");
+
+    axisX_normalroom_humi->setTickCount(tickcount);
+    axisX_normalroom_humi->setFormat("MM-dd");
     axisX_normalroom_humi->setTitleText(tr("Date"));
     axisX_normalroom_humi->setLabelsFont(QFont("Sans Serif",11));
     ui->normalroom_humi->setAxisX(axisX_normalroom_humi);
@@ -674,25 +865,200 @@ void temp_humi_server::send_email(QString file_path)
 
     MimeMessage message;
 
+    message.setHeaderEncoding(MimePart::QuotedPrintable);
+
     EmailAddress sender("automail@wisol.co.kr", "automail");
     message.setSender(&sender);
     query.exec("select * from room_temp_send_emaillist");
     while(query.next()){
-        EmailAddress *to = new EmailAddress(query.value("email").toString(), "automail");
+        EmailAddress *to = new EmailAddress(query.value("email").toString(), query.value("name").toString());
         message.addRecipient(to);
     }
-
-    message.setSubject(tr("auto temp_humi_send"));
+    message.setSubject("FAB 자동 온습도 메일 입니다.");
 
     MimeHtml html;
 
     query.exec("select * from room_temp_humi_sendmail_content");
     query.next();
+
+    QDateTime search_start_time = QDateTime::currentDateTime().addDays(-1);
+    search_start_time.setTime(QTime(0,0,0));
+    QDateTime search_end_time = QDateTime::currentDateTime();
+
+    QSqlQuery query1(db);
+    QString query1txt = QString("select * from room_temp_humi where check_time BETWEEN '%1' AND '%2';").arg(search_start_time.toString("yyyy-MM-dd hh:mm")).arg(search_end_time.toString("yyyy-MM-dd hh:mm"));
+    query1.exec(query1txt);
+    QSqlQuery query2(db);
+    QString query2txt = QString("select * from room_temp_humi_spec");
+    query2.exec(query2txt);
+    QString lightroom_temp_comment ="";
+    QString lightroom_humi_comment="";
+    QString nomalroom_temp_comment = "";
+    QString nomalroom_humi_comment = "";
+    QString comment_temp_time;
+    QString comment_temp_room;
+    QString high_temp = tr("high temp");
+    QString low_temp = tr("low temp");
+    QString comment_humi_time;
+    QString comment_humi_room;
+    QString high_humi = tr("high humi");
+    QString low_humi = tr("low humi");
+    while(query1.next()){
+        double light1_temp = query1.value("light1_temp").toDouble();
+        query2.first();
+        double lightroomtemp_high_spce = query2.value("lightroomtemp_spec").toDouble();
+        query2.last();
+        double lightroomtemp_low_spce = query2.value("lightroomtemp_spec").toDouble();
+        comment_temp_time = query1.value("check_time").toDateTime().toString("MM/dd hh:mm");
+        comment_temp_room = tr("ASML1,2");
+        if(light1_temp>=lightroomtemp_high_spce){
+            lightroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light1_temp).arg(lightroomtemp_high_spce).arg(high_temp));
+        }else if(light1_temp<=lightroomtemp_low_spce) {
+            lightroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light1_temp).arg(lightroomtemp_low_spce).arg(low_temp));
+        }
+        double light2_temp = query1.value("light2_temp").toDouble();
+        comment_temp_room = tr("track");
+        if(light2_temp>=lightroomtemp_high_spce){
+            lightroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light2_temp).arg(lightroomtemp_high_spce).arg(high_temp));
+        }else if(light2_temp<=lightroomtemp_low_spce) {
+            lightroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light2_temp).arg(lightroomtemp_low_spce).arg(low_temp));
+        }
+        double light3_temp = query1.value("light3_temp").toDouble();
+        comment_temp_room = tr("krf");
+        if(light3_temp>=lightroomtemp_high_spce){
+            lightroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light3_temp).arg(lightroomtemp_high_spce).arg(high_temp));
+        }else if(light3_temp<=lightroomtemp_low_spce) {
+            lightroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(light3_temp).arg(lightroomtemp_low_spce).arg(low_temp));
+        }
+
+        double light1_humi = query1.value("light1_humi").toDouble();
+        query2.first();
+        double lightroomhumi_high_spce = query2.value("lightroomhumi_spec").toDouble();
+        query2.last();
+        double lightroomhumi_low_spce = query2.value("lightroomhumi_spec").toDouble();
+        comment_humi_time = query1.value("check_time").toDateTime().toString("MM/dd hh:mm");
+
+        comment_humi_room = tr("ASML1,2");
+        if(light1_humi>=lightroomhumi_high_spce){
+            lightroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light1_humi).arg(lightroomhumi_high_spce).arg(high_humi));
+        }else if(light1_humi<=lightroomhumi_low_spce) {
+            lightroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light1_humi).arg(lightroomhumi_low_spce).arg(low_humi));
+        }
+        double light2_humi = query1.value("light2_humi").toDouble();
+        comment_humi_room = tr("track");
+        if(light2_humi>=lightroomhumi_high_spce){
+            lightroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light2_humi).arg(lightroomhumi_high_spce).arg(high_humi));
+        }else if(light2_humi<=lightroomhumi_low_spce) {
+            lightroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light2_humi).arg(lightroomhumi_low_spce).arg(low_humi));
+        }
+        double light3_humi = query1.value("light3_humi").toDouble();
+        comment_humi_room = tr("krf");
+        if(light3_humi>=lightroomhumi_high_spce){
+            lightroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light3_humi).arg(lightroomhumi_high_spce).arg(high_humi));
+        }else if(light3_humi<=lightroomhumi_low_spce) {
+            lightroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(light3_humi).arg(lightroomhumi_low_spce).arg(low_humi));
+        }
+
+
+        query2.first();
+        double normaltemp_high_spce = query2.value("normalroomtemp_spec").toDouble();
+        query2.last();
+        double normaltemp_low_spce = query2.value("normalroomtemp_spec").toDouble();
+
+        double deposition_temp = query1.value("deposition_temp").toDouble();
+
+        comment_temp_room = tr("deposition");
+        if(deposition_temp>=normaltemp_high_spce){
+            nomalroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(deposition_temp).arg(normaltemp_high_spce).arg(high_temp));
+        }else if(deposition_temp<=normaltemp_low_spce) {
+            nomalroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(deposition_temp).arg(normaltemp_low_spce).arg(low_temp));
+        }
+        double etching1_temp = query1.value("etching1_temp").toDouble();
+
+        comment_temp_room = tr("etching1");
+        if(etching1_temp>=normaltemp_high_spce){
+            nomalroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(etching1_temp).arg(normaltemp_high_spce).arg(high_temp));
+        }else if(etching1_temp<=normaltemp_low_spce) {
+            nomalroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(etching1_temp).arg(normaltemp_low_spce).arg(low_temp));
+        }
+        double etching2_temp = query1.value("etching2_temp").toDouble();
+
+        comment_temp_room = tr("etching2");
+        if(etching2_temp>=normaltemp_high_spce){
+            nomalroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(etching2_temp).arg(normaltemp_high_spce).arg(high_temp));
+        }else if(etching2_temp<=normaltemp_low_spce) {
+            nomalroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(etching2_temp).arg(normaltemp_low_spce).arg(low_temp));
+        }
+        double probe1_temp = query1.value("probe1_temp").toDouble();
+
+        comment_temp_room = tr("probe1");
+        if(probe1_temp>=normaltemp_high_spce){
+            nomalroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(probe1_temp).arg(normaltemp_high_spce).arg(high_temp));
+        }else if(probe1_temp<=normaltemp_low_spce) {
+            nomalroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(probe1_temp).arg(normaltemp_low_spce).arg(low_temp));
+        }
+        double probe2_temp = query1.value("probe2_temp").toDouble();
+        comment_temp_room = tr("probe2");
+        if(probe2_temp>=normaltemp_high_spce){
+            nomalroom_temp_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(probe2_temp).arg(normaltemp_high_spce).arg(high_temp));
+        }else if(probe2_temp<=normaltemp_low_spce) {
+            nomalroom_temp_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_temp_time).arg(comment_temp_room).arg(probe2_temp).arg(normaltemp_low_spce).arg(low_temp));
+        }
+
+        query2.first();
+        double normalroomhumi_high_spce = query2.value("normalroomhumi_spec").toDouble();
+        query2.last();
+        double normalroomhumi_low_spce = query2.value("normalroomhumi_spec").toDouble();
+        comment_humi_time = query1.value("check_time").toDateTime().toString("MM/dd hh:mm");
+        double deposition_humi = query1.value("deposition_humi").toDouble();
+        comment_humi_room = tr("deposition");
+        if(deposition_humi>=normalroomhumi_high_spce){
+            nomalroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(deposition_humi).arg(normalroomhumi_high_spce).arg(high_humi));
+        }else if(deposition_humi<=normalroomhumi_low_spce) {
+            nomalroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(deposition_humi).arg(normalroomhumi_low_spce).arg(low_humi));
+        }
+        double etching1_humi = query1.value("etching1_humi").toDouble();
+        comment_humi_room = tr("etching1");
+        if(etching1_humi>=normalroomhumi_high_spce){
+            nomalroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(etching1_humi).arg(normalroomhumi_high_spce).arg(high_humi));
+        }else if(etching1_humi<=normalroomhumi_low_spce) {
+            nomalroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(etching1_humi).arg(normalroomhumi_low_spce).arg(low_humi));
+        }
+        double etching2_humi = query1.value("etching2_humi").toDouble();
+        comment_humi_room = tr("etching2");
+        if(etching2_humi>=normalroomhumi_high_spce){
+            nomalroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(etching2_humi).arg(normalroomhumi_high_spce).arg(high_humi));
+        }else if(etching2_humi<=normalroomhumi_low_spce) {
+            nomalroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(etching2_humi).arg(normalroomhumi_low_spce).arg(low_humi));
+        }
+        double probe1_humi = query1.value("probe1_humi").toDouble();
+        comment_humi_room = tr("probe1");
+        if(probe1_humi>=normalroomhumi_high_spce){
+            nomalroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(probe1_humi).arg(normalroomhumi_high_spce).arg(high_humi));
+        }else if(probe1_humi<=normalroomhumi_low_spce) {
+            nomalroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(probe1_humi).arg(normalroomhumi_low_spce).arg(low_humi));
+        }
+        double probe2_humi = query1.value("probe2_humi").toDouble();
+        comment_humi_room = tr("probe2");
+        if(probe2_humi>=normalroomhumi_high_spce){
+            nomalroom_humi_comment.append(QString("<p style=\"color:red;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(probe2_humi).arg(normalroomhumi_high_spce).arg(high_humi));
+        }else if(probe2_humi<=normalroomhumi_low_spce) {
+            nomalroom_humi_comment.append(QString("<p style=\"color:blue;\">[%1] %2 = %3 spac = %4  %5</p> <br>").arg(comment_humi_time).arg(comment_humi_room).arg(probe2_humi).arg(normalroomhumi_low_spce).arg(low_humi));
+        }
+
+    }
+
+
     QString htmldata = query.value("data").toString();
     htmldata = htmldata.replace("!!lighttemp_src",file_path+"/lightroom_temp.png");
     htmldata = htmldata.replace("!!lighthumi_src",file_path+"/lightroom_humi.png");
     htmldata = htmldata.replace("!!normaltemp_src",file_path+"/normalroom_temp.png");
     htmldata = htmldata.replace("!!normalhumi_src",file_path+"/normalroom_humi.png");
+    htmldata = htmldata.replace("lightroom_temp_comment",lightroom_temp_comment);
+    htmldata = htmldata.replace("lightroom_humi_comment",lightroom_humi_comment);
+    htmldata = htmldata.replace("normalroom_temp_comment",nomalroom_temp_comment);
+    htmldata = htmldata.replace("normalroom_humi_comment",nomalroom_humi_comment);
+
 
     html.setHtml(htmldata);
 
@@ -706,4 +1072,9 @@ void temp_humi_server::send_email(QString file_path)
 
     }
     smtp.quit();
+}
+
+void temp_humi_server::on_sendmail_btn_clicked()
+{
+    send_email(QDateTime::currentDateTime().toString("yyyy_HH_dd_hh_mm"));
 }

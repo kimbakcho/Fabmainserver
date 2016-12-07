@@ -60,6 +60,8 @@ public:
     QStandardItemModel time_plan_modle;
     QStandardItemModel email_plan_modle;
     QStandardItemModel send_time_plan;
+
+    bool spacout_check();
     ~temp_humi_server();
 private slots:
     void temp_geter_timeout();
@@ -69,6 +71,8 @@ private slots:
     void create_chart();
     void closeEvent(QCloseEvent *event);
     void send_email(QString file_path);
+    void on_sendmail_btn_clicked();
+
 private:
 
     Ui::temp_humi_server *ui;

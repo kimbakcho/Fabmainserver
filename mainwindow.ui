@@ -19,12 +19,12 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>151</width>
+      <width>241</width>
       <height>41</height>
      </rect>
     </property>
     <property name="text">
-     <string>auto temp mail send</string>
+     <string>FAB 제조팀 FAB 제조 온도,습도 모니터링 </string>
     </property>
    </widget>
   </widget>

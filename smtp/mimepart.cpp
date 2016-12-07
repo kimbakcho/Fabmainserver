@@ -155,6 +155,7 @@ void MimePart::prepare()
         mimeString.append("; boundary=").append(cBoundary);
 
     mimeString.append("\r\n");
+
     /* ------------ */
 
     /* Content-Transfer-Encoding */
@@ -165,7 +166,7 @@ void MimePart::prepare()
         mimeString.append("7bit\r\n");
         break;
     case _8Bit:
-        mimeString.append("UTF-8\r\n");
+        mimeString.append("8bit\r\n");
         break;
     case Base64:
         mimeString.append("base64\r\n");
