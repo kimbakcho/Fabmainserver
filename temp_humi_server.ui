@@ -22,14 +22,14 @@
      <widget class="QWidget" name="scrollAreaWidgetContents">
       <property name="geometry">
        <rect>
-        <x>0</x>
+        <x>-27</x>
         <y>0</y>
         <width>1524</width>
-        <height>2642</height>
+        <height>3248</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="4" column="0" colspan="7">
+       <item row="5" column="0" colspan="7">
         <widget class="temp_humi_baseview" name="lightroom_temp" native="true">
          <property name="minimumSize">
           <size>
@@ -39,7 +39,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1" colspan="6">
+       <item row="3" column="1" colspan="6">
         <widget class="temp_humi_baseview" name="normalroom_temp" native="true">
          <property name="minimumSize">
           <size>
@@ -68,7 +68,7 @@
        <item row="0" column="3">
         <widget class="QListView" name="email_list"/>
        </item>
-       <item row="3" column="1" colspan="6">
+       <item row="4" column="1" colspan="6">
         <widget class="temp_humi_baseview" name="lightroom_humi" native="true">
          <property name="minimumSize">
           <size>
@@ -94,7 +94,7 @@
          </property>
         </spacer>
        </item>
-       <item row="1" column="1" colspan="6">
+       <item row="2" column="1" colspan="6">
         <widget class="temp_humi_baseview" name="normalroom_humi" native="true">
          <property name="minimumSize">
           <size>
@@ -115,6 +115,16 @@
         <widget class="QPushButton" name="sendmail_btn">
          <property name="text">
           <string>sendmail</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="6">
+        <widget class="temp_humi_baseview" name="DI_resistance_baseview" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>1500</width>
+           <height>600</height>
+          </size>
          </property>
         </widget>
        </item>

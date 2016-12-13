@@ -18,7 +18,9 @@
 #include <QStandardItem>
 #include <QDir>
 #include <QDateTime>
+#include  <QThread>
 #include <smtp/SmtpMime>
+
 QT_CHARTS_USE_NAMESPACE
 namespace Ui {
 class temp_humi_server;
@@ -55,22 +57,26 @@ public:
     QLineSeries *line_probe2_temp;
     QLineSeries *line_probe2_humi;
 
+    QLineSeries *line_DI_resistance;
+
 
 
     QStandardItemModel time_plan_modle;
     QStandardItemModel email_plan_modle;
     QStandardItemModel send_time_plan;
+    bool roomtemp_humi_data_flag;
+    bool roomdi_resistance_flag;
 
-    bool spacout_check();
+    bool specout_check();
     ~temp_humi_server();
 private slots:
     void temp_geter_timeout();
     void connect_socket();
     void readready_socket();
     void send_message_timeout();
-    void create_chart();
+    void create_chart(int specout_check_time);
     void closeEvent(QCloseEvent *event);
-    void send_email(QString file_path);
+    void send_email(QString file_path,int spec_check_time);
     void on_sendmail_btn_clicked();
 
 private:
