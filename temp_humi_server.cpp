@@ -527,10 +527,10 @@ void temp_humi_server::send_message_timeout()
              QDir savedir = QDir::home();
             savedir.cd("temp_humi_mail");
              QDateTime current_datetime = QDateTime::currentDateTime();
-             if(!savedir.exists(current_datetime.toString("yyyy_HH_dd_hh_mm"))){
-                   savedir.mkdir(current_datetime.toString("yyyy_HH_dd_hh_mm"));     
+             if(!savedir.exists(current_datetime.toString("yyyy_MM_dd_hh_mm"))){
+                   savedir.mkdir(current_datetime.toString("yyyy_MM_dd_hh_mm"));
              }
-             savedir.cd(current_datetime.toString("yyyy_HH_dd_hh_mm"));
+             savedir.cd(current_datetime.toString("yyyy_MM_dd_hh_mm"));
              QPixmap lightroom_temp_picture(ui->lightroom_temp->size());
              ui->lightroom_temp->render(&lightroom_temp_picture);
              lightroom_temp_picture.save(savedir.absolutePath()+"/lightroom_temp.png","PNG");
@@ -544,9 +544,9 @@ void temp_humi_server::send_message_timeout()
              ui->normalroom_humi->render(&normalroom_humi_picture);
              normalroom_humi_picture.save(savedir.absolutePath()+"/normalroom_humi.png","PNG");
              QPixmap DI_resistance_picture(ui->DI_resistance_baseview->size());
-             ui->normalroom_humi->render(&DI_resistance_picture);
+             ui->DI_resistance_baseview->render(&DI_resistance_picture);
              DI_resistance_picture.save(savedir.absolutePath()+"/di_resistance.png","PNG");
-             send_email(current_datetime.toString("yyyy_HH_dd_hh_mm"),query_2.value("spec_check_time").toInt());
+             send_email(current_datetime.toString("yyyy_MM_dd_hh_mm"),query_2.value("spec_check_time").toInt());
              check = true;
          }
     }
@@ -638,7 +638,7 @@ void temp_humi_server::create_chart(int specout_check_time)
 
     line_DI_resistance = new QLineSeries();
     line_DI_resistance->setPointsVisible(true);
-    line_DI_resistance->setName(tr("DI"));
+    line_DI_resistance->setName(tr("FAB DI"));
 
     QDateTime search_start_time = QDateTime::currentDateTime().addDays(-6);
     search_start_time.setTime(QTime(0,0,0));
@@ -653,14 +653,14 @@ void temp_humi_server::create_chart(int specout_check_time)
           qint64 history_time_value = query.value("check_time").toDateTime().toMSecsSinceEpoch();
           double asml1_2_temp_value = query.value("light1_temp").toDouble();
           double track_temp_value = query.value("light2_temp").toDouble();
-          double krf_temp = query.value("light3_temp").toDouble();
+          double krf_temp = query.value("KRF_temp").toDouble();
           line_ASSML1_2_temp->append(history_time_value,asml1_2_temp_value);
           line_track_temp->append(history_time_value,track_temp_value);
           line_krf_temp->append(history_time_value,krf_temp);
 
           double asml1_2_humi_value = query.value("light1_humi").toDouble();
           double track_humi_value = query.value("light2_humi").toDouble();
-          double krf_humi = query.value("light3_humi").toDouble();
+          double krf_humi = query.value("KRF_humi").toDouble();
           line_ASSML1_2_humi->append(history_time_value,asml1_2_humi_value);
           line_track_humi->append(history_time_value,track_humi_value);
           line_krf_humi->append(history_time_value,krf_humi);
@@ -888,7 +888,7 @@ void temp_humi_server::create_chart(int specout_check_time)
     line_probe2_temp->attachAxis(axisX_normalroom_temp);
 
     QValueAxis *axisY_normalroom_temp = new QValueAxis();
-    axisY_normalroom_temp->setTitleText(tr("humi"));
+    axisY_normalroom_temp->setTitleText(tr("temp"));
 
     double normalroom_temp_spec_low = normalroomtemp_list.first()->points().first().y();
     double normalroom_temp_spec_high = normalroomtemp_list.last()->points().first().y();
@@ -1173,7 +1173,7 @@ void temp_humi_server::send_email(QString file_path, int spec_check_time)
     QString comment_diresistance_room;
     query1txt = QString("select * from room_DI_resistance where check_time BETWEEN '%1' AND '%2';").arg(search_start_time.toString("yyyy-MM-dd hh:mm")).arg(search_end_time.toString("yyyy-MM-dd hh:mm"));
     query1.exec(query1txt);
-    query2txt = QString("select * from room_DI_spec");
+    query2txt = QString("select * from room_DI_spec order by resistance desc");
     query2.exec(query2txt);
     while(query1.next()){
         double Di_resistance = query1.value("resistance").toDouble();
@@ -1198,12 +1198,12 @@ void temp_humi_server::send_email(QString file_path, int spec_check_time)
     htmldata = htmldata.replace("!!normaltemp_src",file_path+"/normalroom_temp.png");
     htmldata = htmldata.replace("!!normalhumi_src",file_path+"/normalroom_humi.png");
     //DI 적용시 주석 제거
-    //htmldata = htmldata.replace("!!di_resistance_src",file_path+"/di_resistance.png");
+    htmldata = htmldata.replace("!!di_resistance_src",file_path+"/di_resistance.png");
     htmldata = htmldata.replace("lightroom_temp_comment",lightroom_temp_comment);
     htmldata = htmldata.replace("lightroom_humi_comment",lightroom_humi_comment);
     htmldata = htmldata.replace("normalroom_temp_comment",nomalroom_temp_comment);
     htmldata = htmldata.replace("normalroom_humi_comment",nomalroom_humi_comment);
-//    htmldata = htmldata.replace("DI_resistance_comment",room_DI_resistance_comment);
+    htmldata = htmldata.replace("DI_resistance_comment",room_DI_resistance_comment);
 
 
     html.setHtml(htmldata);
