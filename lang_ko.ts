@@ -45,123 +45,133 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="610"/>
-        <location filename="temp_humi_server.cpp" line="613"/>
-        <location filename="temp_humi_server.cpp" line="1093"/>
-        <location filename="temp_humi_server.cpp" line="1137"/>
+        <location filename="temp_humi_server.cpp" line="646"/>
+        <location filename="temp_humi_server.cpp" line="649"/>
+        <location filename="temp_humi_server.cpp" line="1190"/>
+        <location filename="temp_humi_server.cpp" line="1234"/>
         <source>deposition</source>
         <translation>성막</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="616"/>
-        <location filename="temp_humi_server.cpp" line="619"/>
-        <location filename="temp_humi_server.cpp" line="1101"/>
-        <location filename="temp_humi_server.cpp" line="1144"/>
+        <location filename="temp_humi_server.cpp" line="652"/>
+        <location filename="temp_humi_server.cpp" line="655"/>
+        <location filename="temp_humi_server.cpp" line="1198"/>
+        <location filename="temp_humi_server.cpp" line="1241"/>
         <source>etching1</source>
         <translation>에칭룸</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="622"/>
-        <location filename="temp_humi_server.cpp" line="625"/>
-        <location filename="temp_humi_server.cpp" line="1109"/>
-        <location filename="temp_humi_server.cpp" line="1151"/>
+        <location filename="temp_humi_server.cpp" line="658"/>
+        <location filename="temp_humi_server.cpp" line="661"/>
+        <location filename="temp_humi_server.cpp" line="1206"/>
+        <location filename="temp_humi_server.cpp" line="1248"/>
         <source>etching2</source>
         <translation>아넬바</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="628"/>
-        <location filename="temp_humi_server.cpp" line="631"/>
-        <location filename="temp_humi_server.cpp" line="1117"/>
-        <location filename="temp_humi_server.cpp" line="1158"/>
+        <location filename="temp_humi_server.cpp" line="664"/>
+        <location filename="temp_humi_server.cpp" line="667"/>
+        <location filename="temp_humi_server.cpp" line="1214"/>
+        <location filename="temp_humi_server.cpp" line="1255"/>
         <source>probe1</source>
         <translation>프로브1</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="634"/>
-        <location filename="temp_humi_server.cpp" line="637"/>
-        <location filename="temp_humi_server.cpp" line="1124"/>
-        <location filename="temp_humi_server.cpp" line="1165"/>
+        <location filename="temp_humi_server.cpp" line="670"/>
+        <location filename="temp_humi_server.cpp" line="673"/>
+        <location filename="temp_humi_server.cpp" line="1221"/>
+        <location filename="temp_humi_server.cpp" line="1262"/>
         <source>probe2</source>
         <translation>프로브2</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="641"/>
+        <location filename="temp_humi_server.cpp" line="677"/>
+        <location filename="temp_humi_server.cpp" line="681"/>
         <source>FAB DI</source>
         <oldsource>DI</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="828"/>
-        <location filename="temp_humi_server.cpp" line="891"/>
+        <location filename="temp_humi_server.cpp" line="896"/>
+        <location filename="temp_humi_server.cpp" line="959"/>
         <source>temp</source>
         <translation>온도</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="958"/>
-        <location filename="temp_humi_server.cpp" line="1185"/>
+        <location filename="temp_humi_server.cpp" line="1026"/>
+        <location filename="temp_humi_server.cpp" line="1282"/>
+        <location filename="temp_humi_server.cpp" line="1302"/>
         <source>DI resistance</source>
         <translation>DI비저항 </translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1023"/>
+        <location filename="temp_humi_server.cpp" line="1054"/>
+        <source>DI temp</source>
+        <translation>DI 온도</translation>
+    </message>
+    <message>
+        <location filename="temp_humi_server.cpp" line="1120"/>
         <source>high temp</source>
         <translation>고온</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1024"/>
+        <location filename="temp_humi_server.cpp" line="1121"/>
         <source>low temp</source>
         <translation>저온</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1036"/>
-        <location filename="temp_humi_server.cpp" line="1064"/>
+        <location filename="temp_humi_server.cpp" line="1133"/>
+        <location filename="temp_humi_server.cpp" line="1161"/>
         <source>ASML1,2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1043"/>
-        <location filename="temp_humi_server.cpp" line="1071"/>
+        <location filename="temp_humi_server.cpp" line="1140"/>
+        <location filename="temp_humi_server.cpp" line="1168"/>
         <source>track</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1050"/>
-        <location filename="temp_humi_server.cpp" line="1078"/>
+        <location filename="temp_humi_server.cpp" line="1147"/>
+        <location filename="temp_humi_server.cpp" line="1175"/>
         <source>krf</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1187"/>
+        <location filename="temp_humi_server.cpp" line="1284"/>
+        <location filename="temp_humi_server.cpp" line="1304"/>
         <source>high</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1189"/>
+        <location filename="temp_humi_server.cpp" line="1286"/>
+        <location filename="temp_humi_server.cpp" line="1306"/>
         <source>low</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1027"/>
+        <location filename="temp_humi_server.cpp" line="1124"/>
         <source>high humi</source>
         <translation>고습</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="1028"/>
+        <location filename="temp_humi_server.cpp" line="1125"/>
         <source>low humi</source>
         <translation>저습</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="815"/>
-        <location filename="temp_humi_server.cpp" line="847"/>
-        <location filename="temp_humi_server.cpp" line="877"/>
-        <location filename="temp_humi_server.cpp" line="912"/>
-        <location filename="temp_humi_server.cpp" line="947"/>
+        <location filename="temp_humi_server.cpp" line="883"/>
+        <location filename="temp_humi_server.cpp" line="915"/>
+        <location filename="temp_humi_server.cpp" line="945"/>
+        <location filename="temp_humi_server.cpp" line="980"/>
+        <location filename="temp_humi_server.cpp" line="1015"/>
+        <location filename="temp_humi_server.cpp" line="1043"/>
         <source>Date</source>
         <translation>날짜</translation>
     </message>
     <message>
-        <location filename="temp_humi_server.cpp" line="859"/>
-        <location filename="temp_humi_server.cpp" line="926"/>
+        <location filename="temp_humi_server.cpp" line="927"/>
+        <location filename="temp_humi_server.cpp" line="994"/>
         <source>humi</source>
         <translation>습도</translation>
     </message>

@@ -20,7 +20,7 @@
 #include <QDateTime>
 #include  <QThread>
 #include <smtp/SmtpMime>
-
+#define RoundOff(x, dig) (floor((x) * pow(10,dig) + 0.5) / pow(10,dig))
 QT_CHARTS_USE_NAMESPACE
 namespace Ui {
 class temp_humi_server;
@@ -58,6 +58,7 @@ public:
     QLineSeries *line_probe2_humi;
 
     QLineSeries *line_DI_resistance;
+    QLineSeries *line_DI_temp;
 
 
 
@@ -66,6 +67,7 @@ public:
     QStandardItemModel send_time_plan;
     bool roomtemp_humi_data_flag;
     bool roomdi_resistance_flag;
+    bool roomdi_temp_flag;
 
     bool specout_check();
     ~temp_humi_server();
